@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 project(adbGL)
+set(CMAKE_CXX_STANDARD 11)
 
 find_package(GLEW REQUIRED)
 find_package(OpenGL REQUIRED)
