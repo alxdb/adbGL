@@ -6,13 +6,14 @@ find_package(GLEW REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(glfw3 3.2 REQUIRED)
 
-include_directories(${PROJECT_BINARY_DIR})
+add_subdirectory(Core)
 
-add_subdirectory(core)
-
-add_library(adbGL SHARED $<TARGET_OBJECTS:core>)
+add_library(adbGL SHARED $<TARGET_OBJECTS:Core>)
 target_link_libraries(adbGL glfw ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})
 
-include_directories(core)
-add_executable(window tests/WindowTest.cpp)
-target_link_libraries(window adbGL)
+include_directories(Core)
+
+add_executable(playground tests/Playground.cpp)
+target_link_libraries(playground adbGL)
+add_executable(triangle tests/BasicTriangle.cpp)
+target_link_libraries(triangle adbGL)

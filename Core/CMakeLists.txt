@@ -1,0 +1,1 @@
+add_library(Core OBJECT Window.cpp Window.h Core.h)
