@@ -1,6 +1,7 @@
 //
 // Created by Alexander Davidson Bryan on 19/06/2018.
 //
+
 #include <iostream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -8,6 +9,7 @@
 #include <sstream>
 #include <vector>
 #include <random>
+#include <functional>
 
 template<typename T>
 size_t vec_byte_size(std::vector<T> vec) {
@@ -101,13 +103,11 @@ int main() {
 	if (!glfwInit())
 		return -1;
 
-#ifdef __APPLE__
 	std::cout << "Setting Apple hints" << std::endl;
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-#endif
 
 	/* Create a windowed mode window and its OpenGL context */
 	window = glfwCreateWindow(640, 480, "Hello World", nullptr, nullptr);
@@ -237,7 +237,7 @@ int main() {
 	auto randFloat = std::bind(std::uniform_real_distribution<float>(-1.0f, 1.0f), std::default_random_engine());
 
 	std::vector<float> points;
-	for (int i = 0; i < numPoints; i++) {
+	for (size_t i = 0; i < numPoints; i++) {
 		points.push_back(randFloat());
 		points.push_back(randFloat());
 		points.push_back(randFloat());
