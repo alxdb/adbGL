@@ -2,9 +2,12 @@
 // Created by Alexander Davidson Bryan on 10/07/2018.
 //
 
-#ifndef ADBGL_CORE_H
-#define ADBGL_CORE_H
+#ifndef ADBGL_CORE_HPP
+#define ADBGL_CORE_HPP
 
-#include "Window.h"
+#include "Window.hpp"
+#include "Shader.hpp"
+#include "VertexArray.hpp"
+#include "VertexBuffer.hpp"
 
-#endif //ADBGL_CORE_H
+#endif //ADBGL_CORE_HPP

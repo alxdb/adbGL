@@ -6,11 +6,11 @@
 #include <GLFW/glfw3.h>
 #include <stdexcept>
 
-#include "Window.h"
+#include "Window.hpp"
 
 int Window::instances = 0;
 
-Window::Window(int width, int height, const char * title) {
+Window::Window(int width, int height, const char * title, bool center) {
 	if (instances == 0 && !glfwInit()) {
 		throw std::runtime_error("GLFW failed to initialise");
 	}
@@ -25,6 +25,15 @@ Window::Window(int width, int height, const char * title) {
 
 	// Window Creation
 	window = glfwCreateWindow(width, height, title, nullptr, nullptr);
+	glfwSetWindowSizeCallback(window, resize);
+	if (center) {
+		const GLFWvidmode * mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+		glfwSetWindowPos(window, (mode->width - width) / 2, (mode->height - height) / 2);
+	}
+}
+
+void Window::resize(GLFWwindow *, int width, int height) {
+	glViewport(width, height, 0, 0);
 }
 
 void Window::makeCurrent() {

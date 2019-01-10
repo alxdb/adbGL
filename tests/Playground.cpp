@@ -60,8 +60,6 @@ void checkGlError() {
 		}
 		checkGlError();
 		exit(EXIT_FAILURE);
-	} else {
-		std::cout << "no gl error" << std::endl;
 	}
 }
 
@@ -143,8 +141,8 @@ int main() {
 	/* This is necessary, memory comes in std::string and lvalue (addressable value) is given with next assignment
 	 * c_str addresses internal memory of std::string
 	 */
-	std::string vertSrc = readFile("../Shaders/test_vs.glsl");
-	std::string fragSrc = readFile("../Shaders/test_fs.glsl");
+	std::string vertSrc = readFile("../shaders/test_vs.glsl");
+	std::string fragSrc = readFile("../shaders/test_fs.glsl");
 	const char * vertCStr = vertSrc.c_str();
 	const char * fragCStr = fragSrc.c_str();
 	glShaderSource(vertShader, 1, &vertCStr, nullptr);
