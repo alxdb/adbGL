@@ -1,7 +1,3 @@
-//
-// Created by alxdb on 09/01/19.
-//
-
 #include <fstream>
 #include <iostream>
 #include <glm/gtc/matrix_transform.hpp>
