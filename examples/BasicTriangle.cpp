@@ -41,8 +41,8 @@ int main() {
 	VertexArray vao;
 	VertexBuffer vbo;
 
-	vao.set_attribute_pointer(vbo, shader.attributes.at("pos").index);
 	vbo.buffer_data(triangle_vertices, GL_STATIC_DRAW);
+	vao.set_attribute_pointer(vbo, shader.attributes.at("pos").index);
 
 	// Render
 	while (!window.shouldClose()) {
