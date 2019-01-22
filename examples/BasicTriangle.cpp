@@ -8,10 +8,16 @@ int main() {
 	std::string title = "BasicTriangle";
 	int width = 800, height = 600;
 	// Res
-	const std::vector<GLfloat> triangle_vertices = {
+	const std::vector<GLfloat> pos_vertices = {
 		-1.0f, -1.0f, 0.0f, 1.0f,
 		1.0f, -1.0f, 0.0f, 1.0f,
 		0.0f, 1.0f, 0.0f, 1.0f
+	};
+
+	const std::vector<GLfloat> col_vertices = {
+		1.0f, 0.0f, 0.0f, 1.0f,
+		0.0f, 1.0f, 0.0f, 1.0f,
+		0.0f, 0.0f, 1.0f, 1.0f,
 	};
 
 	glm::mat4 projection = glm::perspective(
@@ -32,17 +38,20 @@ int main() {
 	// Setup
 	Window window(width, height, title.c_str());
 	window.makeCurrent();
-	Shader shader("shaders/base.vs.glsl", "shaders/base.fs.glsl");
 
+	Shader shader("shaders/base.vs.glsl", "shaders/base.fs.glsl");
 	shader.set_uniform(shader.uniforms.at("mvp.model"), model);
 	shader.set_uniform(shader.uniforms.at("mvp.view"), view);
 	shader.set_uniform(shader.uniforms.at("mvp.projection"), projection);
 
-	VertexArray vao;
-	VertexBuffer vbo;
+	VertexBuffer pos_vbo;
+	pos_vbo.buffer_data(pos_vertices, GL_STATIC_DRAW);
+	VertexBuffer col_vbo;
+	col_vbo.buffer_data(col_vertices, GL_STATIC_DRAW);
 
-	vbo.buffer_data(triangle_vertices, GL_STATIC_DRAW);
-	vao.set_attribute_pointer(vbo, shader.attributes.at("pos").index);
+	VertexArray vao;
+	vao.set_attribute_pointer(pos_vbo, shader.attributes.at("pos").index);
+	vao.set_attribute_pointer(col_vbo, shader.attributes.at("col").index);
 
 	// Render
 	while (!window.shouldClose()) {
