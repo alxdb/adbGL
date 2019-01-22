@@ -9,6 +9,8 @@
 #include <GL/glew.h>
 #include <map>
 
+#include "Util.hpp"
+
 class Shader {
 private:
 	GLuint program;
@@ -23,7 +25,7 @@ public:
 
 	Shader(const std::string &vertex_shader_file, const std::string &fragment_shader_file);
 
-	void use() { glUseProgram(program); }
+	void use() { GL_FUNC(glUseProgram(program);) }
 
 	template<typename T>
 	void set_uniform(Input, const T &);

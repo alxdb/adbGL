@@ -2,7 +2,6 @@
 #include <iostream>
 #include <glm/gtc/matrix_transform.hpp>
 #include "Shader.hpp"
-#include "Util.hpp"
 
 void checkShaderError(GLuint shader, GLenum pname);
 
@@ -15,28 +14,28 @@ Shader::Shader(const std::string &vertex_shader_file, const std::string &fragmen
 		std::string fragment_shader_source = read_whole_file(fragment_shader_file);
 		const char * fs_src = fragment_shader_source.c_str();
 
-		checkGlError();
-		GLuint vs = glCreateShader(GL_VERTEX_SHADER);
-		glShaderSource(vs, 1, &vs_src, nullptr);
-		glCompileShader(vs);
-		checkShaderError(vs, GL_COMPILE_STATUS);
+		GL_FUNC(
+			GLuint vs = glCreateShader(GL_VERTEX_SHADER);
+			glShaderSource(vs, 1, &vs_src, nullptr);
+			glCompileShader(vs);
+			checkShaderError(vs, GL_COMPILE_STATUS);
 
-		GLuint fs = glCreateShader(GL_FRAGMENT_SHADER);
-		glShaderSource(fs, 1, &fs_src, nullptr);
-		glCompileShader(fs);
-		checkShaderError(fs, GL_COMPILE_STATUS);
+			GLuint fs = glCreateShader(GL_FRAGMENT_SHADER);
+			glShaderSource(fs, 1, &fs_src, nullptr);
+			glCompileShader(fs);
+			checkShaderError(fs, GL_COMPILE_STATUS);
 
-		program = glCreateProgram();
-		glAttachShader(program, vs);
-		glAttachShader(program, fs);
-		glLinkProgram(program);
-		checkProgramError(program);
+			program = glCreateProgram();
+			glAttachShader(program, vs);
+			glAttachShader(program, fs);
+			glLinkProgram(program);
+			checkProgramError(program);
 
-		glDetachShader(program, vs);
-		glDetachShader(program, fs);
-		glDeleteShader(vs);
-		glDeleteShader(fs);
-		checkGlError();
+			glDetachShader(program, vs);
+			glDetachShader(program, fs);
+			glDeleteShader(vs);
+			glDeleteShader(fs);
+		)
 
 	}
 
@@ -56,22 +55,20 @@ Shader::Shader(const std::string &vertex_shader_file, const std::string &fragmen
 
 			inputs[name] = Input{input_id, params[1]};
 		}
-		checkGlError();
 		return inputs;
 	};
 
-	std::cout << glGetUniformLocation(program, "mvp.model") << std::endl;
 	attributes = get_inputs(GL_PROGRAM_INPUT);
 	uniforms = get_inputs(GL_UNIFORM);
 }
 
 template<>
 void Shader::set_uniform(Shader::Input uniform, const glm::mat4 &value) {
-	checkGlError();
-	glUseProgram(program);
-	glUniformMatrix4fv(uniform.index, 1, GL_FALSE, &value[0][0]);
-	glUseProgram(0);
-	checkGlError();
+	GL_FUNC(
+		glUseProgram(program);
+		glUniformMatrix4fv(uniform.index, 1, GL_FALSE, &value[0][0]);
+		glUseProgram(0);
+	)
 }
 
 template<typename T>
@@ -80,9 +77,7 @@ void Shader::set_uniform(Shader::Input, const T &) {
 }
 
 Shader::~Shader() {
-	checkGlError();
-	glDeleteProgram(program);
-	checkGlError();
+	GL_FUNC(glDeleteProgram(program);)
 }
 
 void checkShaderError(GLuint shader, GLenum pname) {

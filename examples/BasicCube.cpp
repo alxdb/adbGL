@@ -82,8 +82,8 @@ int main() {
 	col_vbo.buffer_data(cube_vertices, GL_STATIC_DRAW);
 
 	VertexArray vao;
-	vao.set_attribute_pointer(pos_vbo, shader.attributes.at("pos").index);
-	vao.set_attribute_pointer(col_vbo, shader.attributes.at("col").index);
+	vao.set_attribute_pointer(pos_vbo, shader.attributes.at("pos"));
+	vao.set_attribute_pointer(col_vbo, shader.attributes.at("col"));
 
 
 	// Render

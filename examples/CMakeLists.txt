@@ -9,4 +9,5 @@ endforeach(EXAMPLE)
 
 configure_file(shaders/base.vs.glsl shaders/base.vs.glsl COPYONLY)
 configure_file(shaders/base.fs.glsl shaders/base.fs.glsl COPYONLY)
+configure_file(resources/UV_Grid.jpg resources/UV_Grid.jpg COPYONLY)
 

@@ -7,6 +7,7 @@
 #include <stdexcept>
 
 #include "Window.hpp"
+#include "Util.hpp"
 
 int Window::instances = 0;
 
@@ -33,7 +34,7 @@ Window::Window(int width, int height, const char * title, bool center) {
 }
 
 void Window::resize(GLFWwindow *, int width, int height) {
-	glViewport(width, height, 0, 0);
+	GL_FUNC(glViewport(width, height, 0, 0);)
 }
 
 void Window::makeCurrent() {

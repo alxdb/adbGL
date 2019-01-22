@@ -20,6 +20,12 @@ int main() {
 		0.0f, 0.0f, 1.0f, 1.0f,
 	};
 
+	const std::vector<GLfloat> tex_vertices = {
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+		0.5f, 1.0f,
+	};
+
 	glm::mat4 projection = glm::perspective(
 		glm::radians(45.0f),
 		(float) width / (float) height,
@@ -49,9 +55,12 @@ int main() {
 	VertexBuffer col_vbo;
 	col_vbo.buffer_data(col_vertices, GL_STATIC_DRAW);
 
+	Texture texture("resources/UV_Grid.jpg");
+	texture.bind();
+
 	VertexArray vao;
-	vao.set_attribute_pointer(pos_vbo, shader.attributes.at("pos").index);
-	vao.set_attribute_pointer(col_vbo, shader.attributes.at("col").index);
+	vao.set_attribute_pointer(pos_vbo, shader.attributes.at("pos"));
+	vao.set_attribute_pointer(col_vbo, shader.attributes.at("col"));
 
 	// Render
 	while (!window.shouldClose()) {
@@ -62,4 +71,6 @@ int main() {
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 		window.update();
 	}
+
+	return 0;
 }

@@ -9,5 +9,6 @@
 #include "Shader.hpp"
 #include "VertexArray.hpp"
 #include "VertexBuffer.hpp"
+#include "Texture.hpp"
 
 #endif //ADBGL_CORE_HPP

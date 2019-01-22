@@ -17,16 +17,12 @@ private:
 	GLuint id = 0;
 public:
 	VertexBuffer() {
-		checkGlError();
-		glCreateBuffers(1, &id);
-		checkGlError();
+		GL_FUNC(glCreateBuffers(1, &id);)
 	}
 
 	template<typename T>
 	void buffer_data(std::vector<T> data, GLenum usage) {
-		checkGlError();
-		glNamedBufferData(id, data.size() * sizeof(T), data.data(), usage);
-		checkGlError();
+		GL_FUNC(glNamedBufferData(id, data.size() * sizeof(T), data.data(), usage);)
 	};
 };
 
