@@ -34,7 +34,7 @@ int main() {
 	);
 
 	glm::mat4 view = glm::lookAt(
-		glm::vec3(4, 3, 3),
+		glm::vec3(0, 0, 3),
 		glm::vec3(0, 0, 0),
 		glm::vec3(0, 1, 0)
 	);
@@ -54,6 +54,8 @@ int main() {
 	pos_vbo.buffer_data(pos_vertices, GL_STATIC_DRAW);
 	VertexBuffer col_vbo;
 	col_vbo.buffer_data(col_vertices, GL_STATIC_DRAW);
+	VertexBuffer tex_vbo;
+	tex_vbo.buffer_data(tex_vertices, GL_STATIC_DRAW);
 
 	Texture texture("resources/UV_Grid.jpg");
 	texture.bind();
@@ -61,6 +63,7 @@ int main() {
 	VertexArray vao;
 	vao.set_attribute_pointer(pos_vbo, shader.attributes.at("pos"));
 	vao.set_attribute_pointer(col_vbo, shader.attributes.at("col"));
+	vao.set_attribute_pointer(tex_vbo, shader.attributes.at("tex"), 2);
 
 	// Render
 	while (!window.shouldClose()) {

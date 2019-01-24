@@ -4,7 +4,7 @@ foreach(EXAMPLE ${EXAMPLES_SRC})
 	get_filename_component(EXAMPLE_EXE ${EXAMPLE} NAME_WE)
 	add_executable(${EXAMPLE_EXE} ${EXAMPLE})
 	target_link_libraries(${EXAMPLE_EXE} adbGL)
-	target_include_directories(${EXAMPLE_EXE} PRIVATE ../Core)
+	target_include_directories(${EXAMPLE_EXE} PRIVATE ../)
 endforeach(EXAMPLE)
 
 configure_file(shaders/base.vs.glsl shaders/base.vs.glsl COPYONLY)
