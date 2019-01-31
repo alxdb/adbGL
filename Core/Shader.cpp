@@ -7,12 +7,11 @@ void checkShaderError(GLuint shader, GLenum pname);
 
 void checkProgramError(GLuint shader);
 
-Shader::Shader(const std::string &vertex_shader_file, const std::string &fragment_shader_file) {
+Shader::Shader(const std::string &vertex_shader, const std::string &fragment_shader) {
 	{ // Shader Compilation
-		std::string vertex_shader_source = read_whole_file(vertex_shader_file);
-		const char * vs_src = vertex_shader_source.c_str();
-		std::string fragment_shader_source = read_whole_file(fragment_shader_file);
-		const char * fs_src = fragment_shader_source.c_str();
+		const char * vs_src = vertex_shader.c_str();
+		const char * fs_src = fragment_shader.c_str();
+
 
 		GL_FUNC(
 			GLuint vs = glCreateShader(GL_VERTEX_SHADER);
@@ -48,10 +47,9 @@ Shader::Shader(const std::string &vertex_shader_file, const std::string &fragmen
 			GLenum props[] = {GL_NAME_LENGTH, GL_TYPE};
 			glGetProgramResourceiv(program, program_interface, input_id, 2, props, 2, nullptr, params);
 
-			auto name_raw = (char *) malloc((size_t) params[0]);
+			char name_raw[params[0]];
 			glGetProgramResourceName(program, program_interface, input_id, params[0], nullptr, name_raw);
 			std::string name(name_raw);
-			free(name_raw);
 
 			inputs[name] = Input{input_id, params[1]};
 		}

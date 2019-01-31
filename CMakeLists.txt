@@ -14,5 +14,7 @@ add_subdirectory(Core)
 add_library(adbGL SHARED $<TARGET_OBJECTS:Core>)
 target_link_libraries(adbGL glfw ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})
 
+set(ADBGL_INC ${CMAKE_CURRENT_SOURCE_DIR})
+
 add_subdirectory(Core/examples)
 

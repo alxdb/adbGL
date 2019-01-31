@@ -1,6 +1,6 @@
 #include <stdexcept>
 
-#include <Core.hpp>
+#include <adbGL.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 int main() {
@@ -45,7 +45,7 @@ int main() {
 	Window window(width, height, title.c_str());
 	window.makeCurrent();
 
-	Shader shader("shaders/base.vs.glsl", "shaders/base.fs.glsl");
+	Shader shader(read_whole_file("shaders/base.vs.glsl"), read_whole_file("shaders/base.fs.glsl"));
 	shader.set_uniform(shader.uniforms.at("mvp.model"), model);
 	shader.set_uniform(shader.uniforms.at("mvp.view"), view);
 	shader.set_uniform(shader.uniforms.at("mvp.projection"), projection);
