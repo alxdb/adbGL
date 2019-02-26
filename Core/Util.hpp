@@ -9,7 +9,7 @@
 
 #define GL_FUNC(body) checkGlError(); body checkGlError();
 
-std::string read_whole_file(const std::string &filename);
+std::string read_whole_file(const std::string& filename);
 void checkGlError();
 
 #endif //ADBGL_UTIL_HPP

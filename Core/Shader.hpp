@@ -11,27 +11,33 @@
 
 #include "Util.hpp"
 
+namespace adbgl {
+
 class Shader {
 private:
 	GLuint program;
 public:
 	struct Input {
-		GLuint index;
-		GLint type;
+	  GLuint index;
+	  GLint type;
 	};
 
 	std::map<std::string, Input> attributes;
 	std::map<std::string, Input> uniforms;
 
-	Shader(const std::string &vertex_shader_file, const std::string &fragment_shader_file);
+	Shader(const std::string& vertex_shader_file, const std::string& fragment_shader_file);
 
-	void use() { GL_FUNC(glUseProgram(program);) }
+	void use()
+	{
+		GL_FUNC(glUseProgram(program);)
+	}
 
 	template<typename T>
-	void set_uniform(Input, const T &);
+	void set_uniform(Input, const T&);
 
 	~Shader();
 };
 
+}
 
 #endif //ADBGL_SHADER_HPP

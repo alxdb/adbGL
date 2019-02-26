@@ -8,15 +8,15 @@ out vec4 vs_col;
 out vec2 vs_tex;
 
 struct MVP {
-    mat4 model;
-    mat4 view;
-    mat4 projection;
+  mat4 model;
+  mat4 view;
+  mat4 projection;
 };
 
 uniform MVP mvp;
 
 void main() {
-    gl_Position = mvp.projection * mvp.view * mvp.model * pos;
-    vs_col = col;
-	vs_tex = tex;
+  gl_Position = mvp.projection * mvp.view * mvp.model * pos;
+  vs_col = col;
+  vs_tex = tex;
 }

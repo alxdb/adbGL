@@ -8,5 +8,5 @@ out vec4 frag_col;
 uniform sampler2D tex_samp;
 
 void main() {
-    frag_col = vs_col * texture(tex_samp, vs_tex);
+  frag_col = vs_col * texture(tex_samp, vs_tex);
 }

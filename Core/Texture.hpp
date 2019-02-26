@@ -4,17 +4,21 @@
 
 #include "Util.hpp"
 
+namespace adbgl {
 class Texture {
 private:
 	GLuint handle;
 public:
 	Texture(std::string filename);
 
-	void bind() {
+	void bind()
+	{
 		GL_FUNC(glBindTexture(GL_TEXTURE_2D, handle);)
 	}
 
-	static void unbind() {
+	static void unbind()
+	{
 		GL_FUNC(glBindTexture(GL_TEXTURE_2D, 0);)
 	}
 };
+}

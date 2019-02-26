@@ -5,26 +5,32 @@
 #ifndef ADBGL_VERTEXBUFFER_HPP
 #define ADBGL_VERTEXBUFFER_HPP
 
-
+#include "Util.hpp"
 #include <GL/glew.h>
 #include <vector>
-#include "Util.hpp"
 
+namespace adbgl {
 class VertexBuffer {
-	friend class VertexArray;
+  friend class VertexArray;
 
 private:
-	GLuint id = 0;
-public:
-	VertexBuffer() {
-		GL_FUNC(glCreateBuffers(1, &id);)
-	}
+  GLuint id = 0;
 
-	template<typename T>
-	void buffer_data(std::vector<T> data, GLenum usage) {
-		GL_FUNC(glNamedBufferData(id, data.size() * sizeof(T), data.data(), usage);)
-	};
+public:
+  VertexBuffer() { GL_FUNC(glCreateBuffers(1, &id);) }
+
+  template <typename T>
+  VertexBuffer(std::vector<T> data, GLenum usage) : VertexBuffer() {
+    buffer_data(data, usage);
+  }
+
+  template <typename T> void buffer_data(std::vector<T> data, GLenum usage) {
+    GL_FUNC(glNamedBufferData(id, data.size() * sizeof(T), data.data(), usage);)
+  }
+
+  ~VertexBuffer() { GL_FUNC(glDeleteBuffers(1, &id);) }
 };
 
+} // namespace adbgl
 
-#endif //ADBGL_VERTEXBUFFER_HPP
+#endif // ADBGL_VERTEXBUFFER_HPP

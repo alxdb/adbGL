@@ -8,24 +8,25 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+namespace adbgl {
 class Window {
 private:
-	GLFWwindow * window;
-	static int instances;
+  GLFWwindow *window;
+  static int instances;
 
-	static void resize(GLFWwindow *, int, int);
+  static void resize(GLFWwindow *, int, int);
+
 public:
-	Window(int width, int height, const char * title, bool center = true);
-	~Window();
-	void makeCurrent();
-	bool shouldClose() {
-		return glfwWindowShouldClose(window) == 1;
-	}
-	void update() {
-		glfwPollEvents();
-		glfwSwapBuffers(window);
-	}
+  Window(int width, int height, const char *title, bool center = true);
+  ~Window();
+  void makeCurrent();
+  bool shouldClose() { return glfwWindowShouldClose(window) == 1; }
+  void update() {
+    glfwPollEvents();
+    glfwSwapBuffers(window);
+  }
 };
 
+} // namespace adbgl
 
-#endif //ADBGL_WINDOW_HPP
+#endif // ADBGL_WINDOW_HPP
