@@ -4,6 +4,7 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <iostream>
 #include <stdexcept>
 
 #include "Util.hpp"
@@ -12,7 +13,7 @@
 namespace adbgl {
 int Window::instances = 0;
 
-Window::Window(int width, int height, const char *title, bool center) {
+Window::Window(int width, int height, const char *title, bool fullscreen) {
   if (instances == 0 && !glfwInit()) {
     throw std::runtime_error("GLFW failed to initialise");
   }
@@ -26,18 +27,17 @@ Window::Window(int width, int height, const char *title, bool center) {
 #endif
 
   // Window Creation
-  window = glfwCreateWindow(width, height, title, nullptr, nullptr);
-  glfwSetWindowSizeCallback(window, resize);
-  if (center) {
-    const GLFWvidmode *mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-    glfwSetWindowPos(window, (mode->width - width) / 2,
-                     (mode->height - height) / 2);
+  if (fullscreen) {
+    GLFWmonitor * monitor = glfwGetPrimaryMonitor();
+    const GLFWvidmode * mode = glfwGetVideoMode(monitor);
+    window = glfwCreateWindow(mode->width, mode->height, title, monitor, nullptr);
+  } else {
+    window = glfwCreateWindow(width, height, title, nullptr, nullptr);
   }
+  glfwSetWindowSizeCallback(window, resize);
 }
 
-void Window::resize(GLFWwindow *, int width, int height) {
-  GL_FUNC(glViewport(width, height, 0, 0);)
-}
+void Window::resize(GLFWwindow *, int width, int height) { GL_FUNC(glViewport(0, 0, width, height);) }
 
 void Window::makeCurrent() {
   glfwMakeContextCurrent(window);

@@ -12,31 +12,34 @@
 #include "VertexBuffer.hpp"
 
 namespace adbgl {
+
 class VertexArray {
 private:
-	GLuint id = 0;
+  GLuint id = 0;
 
 public:
-	VertexArray()
-	{
-		GL_FUNC(glGenVertexArrays(1, &id);)
-	}
+  struct AttributePointer {
+    GLint size;
+    GLenum type;
+    GLboolean normalized;
+    GLsizei stride;
+    const GLvoid *offset;
+  };
 
-	void bind()
-	{
-		GL_FUNC(glBindVertexArray(id);)
-	}
+  VertexArray() { GL_FUNC(glGenVertexArrays(1, &id);) }
 
-	static void unbind()
-	{
-		GL_FUNC(glBindVertexArray(0);)
-	}
+  void bind() { GL_FUNC(glBindVertexArray(id);) }
 
-	void set_attribute_pointer(VertexBuffer vbo, Shader::Input input,
-			GLint size = 4, GLenum type = GL_FLOAT,
-			GLsizei stride = 0,
-			const GLvoid* offset = nullptr);
+  static void unbind() { GL_FUNC(glBindVertexArray(0);) }
+
+  void set_attribute_pointer(VertexBuffer vbo, Shader::Input input, AttributePointer pointer);
 };
-}
+
+namespace attribute_types {
+constexpr VertexArray::AttributePointer vec4_float{4, GL_FLOAT, GL_FALSE, 0, 0};
+constexpr VertexArray::AttributePointer vec2_float{2, GL_FLOAT, GL_FALSE, 0, 0};
+} // namespace attribute_types
+
+} // namespace adbgl
 
 #endif // ADBGL_VERTEXARRAY_HPP

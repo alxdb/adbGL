@@ -5,9 +5,9 @@
 #ifndef ADBGL_SHADER_HPP
 #define ADBGL_SHADER_HPP
 
-#include <string>
 #include <GL/glew.h>
 #include <map>
+#include <string>
 
 #include "Util.hpp"
 
@@ -15,29 +15,40 @@ namespace adbgl {
 
 class Shader {
 private:
-	GLuint program;
+  GLuint program;
+
 public:
-	struct Input {
-	  GLuint index;
-	  GLint type;
-	};
+  struct Input {
+    GLuint index;
+    GLint type;
+  };
 
-	std::map<std::string, Input> attributes;
-	std::map<std::string, Input> uniforms;
+  struct Attributes : private std::map<std::string, Input> {
+    using std::map<std::string, Input>::operator=;
 
-	Shader(const std::string& vertex_shader_file, const std::string& fragment_shader_file);
+    Input get(std::string name) {
+      try {
+        return at(name);
+      } catch (std::exception e) {
+        throw std::out_of_range("no attribute named " + name + " found");
+      }
+    }
+  };
 
-	void use()
-	{
-		GL_FUNC(glUseProgram(program);)
-	}
+  using Uniforms = Attributes;
 
-	template<typename T>
-	void set_uniform(Input, const T&);
+  Attributes attributes;
+  Uniforms uniforms;
 
-	~Shader();
+  Shader(const std::string &vertex_shader_file, const std::string &fragment_shader_file);
+
+  void use() { GL_FUNC(glUseProgram(program);) }
+
+  template <typename T> void set_uniform(Input, const T &);
+
+  ~Shader();
 };
 
-}
+} // namespace adbgl
 
-#endif //ADBGL_SHADER_HPP
+#endif // ADBGL_SHADER_HPP

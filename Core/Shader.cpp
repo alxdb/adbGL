@@ -64,7 +64,6 @@ template <> void Shader::set_uniform(Shader::Input uniform, const glm::mat4 &val
   checkGlError();
   glUseProgram(program);
   glUniformMatrix4fv(uniform.index, 1, GL_FALSE, &value[0][0]);
-  glUseProgram(0);
   checkGlError();
 }
 

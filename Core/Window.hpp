@@ -17,7 +17,7 @@ private:
   static void resize(GLFWwindow *, int, int);
 
 public:
-  Window(int width, int height, const char *title, bool center = true);
+  Window(int width, int height, const char *title, bool fullscreen);
   ~Window();
   void makeCurrent();
   bool shouldClose() { return glfwWindowShouldClose(window) == 1; }
