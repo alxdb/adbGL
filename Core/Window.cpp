@@ -22,14 +22,15 @@ Window::Window(int width, int height, const char *title, bool fullscreen) {
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+  glfwWindowHint(GLFW_SAMPLES, 8);
 #ifdef __APPLE__
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
   // Window Creation
   if (fullscreen) {
-    GLFWmonitor * monitor = glfwGetPrimaryMonitor();
-    const GLFWvidmode * mode = glfwGetVideoMode(monitor);
+    GLFWmonitor *monitor = glfwGetPrimaryMonitor();
+    const GLFWvidmode *mode = glfwGetVideoMode(monitor);
     window = glfwCreateWindow(mode->width, mode->height, title, monitor, nullptr);
   } else {
     window = glfwCreateWindow(width, height, title, nullptr, nullptr);

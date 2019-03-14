@@ -17,6 +17,11 @@ class Shader {
 private:
   GLuint program;
 
+  Shader(const Shader &) = delete;
+  Shader &operator=(const Shader &) = delete;
+  Shader(Shader &&);
+  Shader &operator=(const Shader &&);
+
 public:
   struct Input {
     GLuint index;
@@ -46,7 +51,7 @@ public:
 
   template <typename T> void set_uniform(Input, const T &);
 
-  ~Shader();
+  ~Shader() { GL_FUNC(glDeleteProgram(program);) }
 };
 
 } // namespace adbgl

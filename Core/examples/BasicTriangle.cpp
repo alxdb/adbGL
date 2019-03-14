@@ -63,6 +63,8 @@ int main() {
   vao.bind();
   texture.bind();
   shader.use();
+  glClearColor(0.1, 0.1, 0.1, 1.0);
+  glEnable(GL_MULTISAMPLE);
 
   using std::chrono::system_clock;
 

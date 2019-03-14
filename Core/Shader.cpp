@@ -67,11 +67,16 @@ template <> void Shader::set_uniform(Shader::Input uniform, const glm::mat4 &val
   checkGlError();
 }
 
+template <> void Shader::set_uniform(Shader::Input uniform, const glm::vec4 &value) {
+  checkGlError();
+  glUseProgram(program);
+  glUniform4fv(uniform.index, 1, &value[0]);
+  checkGlError();
+}
+
 template <typename T> void Shader::set_uniform(Shader::Input, const T &) {
   throw std::runtime_error("not implemented");
 }
-
-Shader::~Shader() { GL_FUNC(glDeleteProgram(program);) }
 
 } // namespace adbgl
 

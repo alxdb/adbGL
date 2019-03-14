@@ -17,6 +17,12 @@ class VertexArray {
 private:
   GLuint id = 0;
 
+  // Move Semantics
+  VertexArray(const VertexBuffer &) = delete;
+  VertexArray &operator=(const VertexBuffer &) = delete;
+  VertexArray(VertexBuffer &&);
+  VertexArray &operator=(const VertexBuffer &&);
+
 public:
   struct AttributePointer {
     GLint size;
@@ -32,7 +38,9 @@ public:
 
   static void unbind() { GL_FUNC(glBindVertexArray(0);) }
 
-  void set_attribute_pointer(VertexBuffer vbo, Shader::Input input, AttributePointer pointer);
+  void set_attribute_pointer(VertexBuffer &vbo, const Shader::Input &input, const AttributePointer &pointer);
+
+  ~VertexArray() { GL_FUNC(glDeleteVertexArrays(1, &id);) }
 };
 
 namespace attribute_types {
